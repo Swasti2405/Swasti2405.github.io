@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swasti Sadanand — Software Engineer</title>
+<meta name="description" content="Swasti Sadanand — Software Engineer building full-stack systems and AI-powered tools. MS CS @ NC State University.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">SS<span class="cursor">_</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">about</a>
+      <a href="#experience">experience</a>
+      <a href="#skills">skills</a>
+      <a href="#projects">projects</a>
+      <a href="#education">education</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="eyebrow">// software engineer &middot; full-stack + ai/ml</p>
+        <h1>Swasti Sadanand</h1>
+        <div class="terminal" role="img" aria-label="Terminal showing a whoami command and its output">
+          <div class="terminal-bar">
+            <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+            <span class="terminal-title">swasti@portfolio:~</span>
+          </div>
+          <div class="terminal-body">
+            <p class="terminal-line"><span class="prompt">$</span> <span id="typed"></span><span class="type-cursor">|</span></p>
+            <p class="terminal-out" id="typedOut" hidden>MS CS @ NC State &middot; full-stack &amp; AI/ML &middot; open to Software Engineer roles</p>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">View projects</a>
+          <a href="assets/Swasti_Sadanand_Resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Resume ↓</a>
+        </div>
+        <div class="hero-links">
+          <a href="https://github.com/Swasti2405" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/swasti-sadanand/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:swasti.s245@gmail.com">Email</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <div class="photo-frame">
+          <img src="assets/photo.jpg" alt="Portrait of Swasti Sadanand">
+        </div>
+      </div>
+    </div>
+    <a href="#about" class="scroll-cue" aria-label="Scroll to about section">
+      <span></span>
+    </a>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-inner reveal">
+      <p class="section-label">01 &middot; about</p>
+      <h2 class="section-title">A bit about me</h2>
+      <p class="about-text">
+        I'm a Master's Computer Science student at NC State University (graduating May 2027), with a
+        B.E. in Computer Science from BMS Institute of Technology and Management, Bangalore (GPA 9.47/10).
+        I like working across the stack — from serverless pipelines and backend APIs to React interfaces
+        and fine-tuned LLMs — and I've shipped everything from an AWS Lambda reconciliation pipeline at
+        LexisNexis to a financial-risk GenAI platform at Pinaka AI.
+      </p>
+      <p class="about-text">
+        I'm currently looking for full-time Software Engineer roles where I can keep building real,
+        production-grade systems — I'm especially drawn to teams working at the intersection of
+        full-stack engineering and applied AI.
+      </p>
+      <p class="about-note">Co-author, <em>“Simplifying Structure and Pattern in Complex Social Networks Using Graph Isomorphism,”</em> 14th ICCCNT Conference, IIT Delhi, 2023 — IEEE Xplore.</p>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="section-inner reveal">
+      <p class="section-label">02 &middot; experience</p>
+      <h2 class="section-title">Where I've worked</h2>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Software Engineer Intern</h3>
+              <span class="timeline-date">Jun 2026 – Aug 2026</span>
+            </div>
+            <p class="timeline-org">LexisNexis Legal &amp; Professional &middot; Raleigh, NC</p>
+            <ul>
+              <li>Diagnosed and resolved data-integrity defects in an email indexing pipeline handling .msg/.eml attachments, improving document-processing reliability.</li>
+              <li>Shipped front-end enhancements and enforced code-quality standards with SonarQube, reducing technical debt.</li>
+              <li>Architected a serverless AWS Lambda pipeline that reconciles document versions using pattern matching and ML-based semantic search.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Data Analyst Intern</h3>
+              <span class="timeline-date">Feb 2025 – Jun 2025</span>
+            </div>
+            <p class="timeline-org">Pinaka AI &middot; Remote / Bangalore, India</p>
+            <ul>
+              <li>Designed a hybrid Predictive + Generative AI financial-risk platform for accounts receivable/payable data.</li>
+              <li>Engineered financial datasets and trained predictive models for credit scoring and delinquency detection.</li>
+              <li>Fine-tuned an LLM for conversational financial insights, reaching 96% accuracy on generated summaries and recommendations.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Software Intern</h3>
+              <span class="timeline-date">Oct 2023 – Nov 2023</span>
+            </div>
+            <p class="timeline-org">Ametek Instruments India Pvt Ltd &middot; Bangalore, India</p>
+            <ul>
+              <li>Built a C# / WPF desktop utility for bidirectional .txt ⇄ .prf conversion, automating a manual workflow.</li>
+              <li>Owned the full software lifecycle end to end, from requirements to deployment.</li>
+              <li>Built a React.js + Node.js web interface bringing the conversion tool to the browser.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="section-inner reveal">
+      <p class="section-label">03 &middot; skills</p>
+      <h2 class="section-title">Toolbox</h2>
+
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="pills">
+            <span class="pill">Python</span><span class="pill">Java</span><span class="pill">C#</span>
+            <span class="pill">C</span><span class="pill">JavaScript</span><span class="pill">SQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Web &amp; Frameworks</h3>
+          <div class="pills">
+            <span class="pill">React.js</span><span class="pill">Node.js</span><span class="pill">Express.js</span>
+            <span class="pill">.NET</span><span class="pill">Django</span><span class="pill">Flask</span>
+            <span class="pill">HTML/CSS</span><span class="pill">PHP</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Tools &amp; Platforms</h3>
+          <div class="pills">
+            <span class="pill">Git</span><span class="pill">AWS</span><span class="pill">SonarQube</span>
+            <span class="pill">Windows</span><span class="pill">Ubuntu</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Data &amp; ML</h3>
+          <div class="pills">
+            <span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">Matplotlib</span>
+            <span class="pill">OpenCV</span><span class="pill">PyTorch</span><span class="pill">TensorFlow</span>
+            <span class="pill">Scikit-learn</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-inner reveal">
+      <p class="section-label">04 &middot; projects</p>
+      <h2 class="section-title">Things I've built</h2>
+
+      <div class="project-grid">
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="project-tag">proj/01</span>
+            <span class="project-status">private repo</span>
+          </div>
+          <h3>NextStep Bot</h3>
+          <p class="project-desc">career guidance chatbot</p>
+          <p class="project-body">
+            An NLP-powered chatbot using a fine-tuned Mistral-7B LLM with a RAG pipeline to ground
+            responses in a curated knowledge base. Fine-tuned with QLoRA to give personalized guidance
+            on higher studies and job placements, plus resume-building templates.
+          </p>
+          <div class="project-tech">
+            <span class="pill pill-sm">Python</span><span class="pill pill-sm">NLP</span>
+            <span class="pill pill-sm">Mistral-7B</span><span class="pill pill-sm">RAG</span>
+            <span class="pill pill-sm">QLoRA</span>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="project-tag">proj/02</span>
+            <span class="project-status">2nd place &middot; university PBL</span>
+          </div>
+          <h3>Technopired</h3>
+          <p class="project-desc">learning platform for dyslexic children</p>
+          <p class="project-body">
+            An interactive, accessibility-first educational platform built in Flask, combining
+            gamification, multisensory learning, and adaptive personalization with progress tracking
+            to improve literacy outcomes for diverse learners.
+          </p>
+          <div class="project-tech">
+            <span class="pill pill-sm">Python</span><span class="pill pill-sm">Flask</span>
+            <span class="pill pill-sm">Accessibility</span>
+          </div>
+          <a class="project-link" href="https://github.com/Swasti2405/Technopired" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+        <article class="project-card">
+          <div class="project-card-top">
+            <span class="project-tag">proj/03</span>
+            <span class="project-status">HackNC</span>
+          </div>
+          <h3>CogniShield</h3>
+          <p class="project-desc">real-time AI integrity layer</p>
+          <p class="project-body">
+            A Chrome extension + FastAPI backend that monitors LLM chat responses in real time,
+            flagging sycophancy and PII-exposure risk with a live risk dashboard and refined-prompt
+            suggestions to keep AI answers factual and safe.
+          </p>
+          <div class="project-tech">
+            <span class="pill pill-sm">Python</span><span class="pill pill-sm">FastAPI</span>
+            <span class="pill pill-sm">Chrome Extension</span><span class="pill pill-sm">JavaScript</span>
+          </div>
+          <a class="project-link" href="https://github.com/AnushaU1111/HackNC_Deploy-and-pray" target="_blank" rel="noopener">View on GitHub →</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education">
+    <div class="section-inner reveal">
+      <p class="section-label">05 &middot; education</p>
+      <h2 class="section-title">Academic background</h2>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="timeline-head">
+            <h3>Master of Computer Science</h3>
+            <span class="timeline-date">May 2027</span>
+          </div>
+          <p class="timeline-org">NC State University &middot; Raleigh, NC</p>
+          <p class="edu-detail">GPA 3.6/4.0 &middot; Algorithms, Software Engineering, DevOps</p>
+        </div>
+        <div class="edu-card">
+          <div class="timeline-head">
+            <h3>B.E. in Computer Science</h3>
+            <span class="timeline-date">2021 – 2025</span>
+          </div>
+          <p class="timeline-org">BMS Institute of Technology and Management &middot; Bangalore, India</p>
+          <p class="edu-detail">GPA 9.47/10 &middot; Data Structures, Discrete Mathematics, Data Science, DBMS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section section-contact" id="contact">
+    <div class="section-inner reveal">
+      <p class="section-label">06 &middot; contact</p>
+      <h2 class="section-title">Let's talk</h2>
+      <p class="about-text">
+        I'm actively looking for entry-level Software Engineer roles. If my work looks like a fit,
+        I'd love to hear from you.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:swasti.s245@gmail.com" class="btn btn-primary">swasti.s245@gmail.com</a>
+        <a href="https://github.com/Swasti2405" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+        <a href="https://www.linkedin.com/in/swasti-sadanand/" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>Designed &amp; built by Swasti Sadanand &middot; <span id="year"></span></p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
