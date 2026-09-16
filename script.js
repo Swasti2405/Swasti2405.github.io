@@ -203,7 +203,7 @@ if (contactForm) {
         body: new FormData(contactForm)
       });
       if (!res.ok) throw new Error('Request failed');
-      statusEl.textContent = "Message sent. I'll get back to you soon.";
+      statusEl.textContent = 'Received and bookmarked. I’ll reply soon.';
       statusEl.classList.add('success');
       contactForm.reset();
     } catch (err) {
