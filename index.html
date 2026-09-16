@@ -8,7 +8,7 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -64,6 +64,7 @@
       </div>
       <div class="hero-photo">
         <div class="photo-frame">
+          <span class="bookmark" aria-hidden="true"></span>
           <img src="assets/photo.jpg" alt="Portrait of Swasti Sadanand">
         </div>
       </div>
@@ -76,7 +77,7 @@
   <!-- ABOUT -->
   <section class="section" id="about">
     <div class="section-inner reveal">
-      <p class="section-label">01 &middot; About</p>
+      <p class="section-label">Chapter 01 &middot; About</p>
       <h2 class="section-title">Beyond <code>whoami</code></h2>
 
       <div class="terminal about-card">
@@ -102,6 +103,9 @@
             I'm seeking Software Development opportunities where I can keep building full-stack systems and
             AI-powered tools at scale.
           </p>
+          <p class="about-text about-aside">
+            Off the clock, I'm usually a few chapters into a book instead of a few tabs into Stack Overflow.
+          </p>
         </div>
       </div>
 
@@ -112,49 +116,59 @@
   <!-- SKILLS -->
   <section class="section" id="skills">
     <div class="section-inner reveal">
-      <p class="section-label">02 &middot; Skills</p>
+      <p class="section-label">Chapter 02 &middot; Skills</p>
       <h2 class="section-title">Stack Overflow <span class="title-sub">(in a good way)</span></h2>
-      <p class="section-caption">// the elements of my stack, arranged by category</p>
+      <p class="section-caption">// my stack, shelved by category</p>
 
-      <div class="periodic-table">
-        <div class="element lang" style="--i:1"><span class="atomic-num">1</span><span class="symbol">Py</span><span class="element-name">Python</span></div>
-        <div class="element lang" style="--i:2"><span class="atomic-num">2</span><span class="symbol">Jv</span><span class="element-name">Java</span></div>
-        <div class="element lang" style="--i:3"><span class="atomic-num">3</span><span class="symbol">C#</span><span class="element-name">C#</span></div>
-        <div class="element lang" style="--i:4"><span class="atomic-num">4</span><span class="symbol">C</span><span class="element-name">C</span></div>
-        <div class="element lang" style="--i:5"><span class="atomic-num">5</span><span class="symbol">Js</span><span class="element-name">JavaScript</span></div>
-        <div class="element lang" style="--i:6"><span class="atomic-num">6</span><span class="symbol">Sq</span><span class="element-name">SQL</span></div>
-
-        <div class="element web" style="--i:7"><span class="atomic-num">7</span><span class="symbol">Rc</span><span class="element-name">React.js</span></div>
-        <div class="element web" style="--i:8"><span class="atomic-num">8</span><span class="symbol">Nd</span><span class="element-name">Node.js</span></div>
-        <div class="element web" style="--i:9"><span class="atomic-num">9</span><span class="symbol">Ex</span><span class="element-name">Express.js</span></div>
-        <div class="element web" style="--i:10"><span class="atomic-num">10</span><span class="symbol">Nt</span><span class="element-name">.NET</span></div>
-        <div class="element web" style="--i:11"><span class="atomic-num">11</span><span class="symbol">Dj</span><span class="element-name">Django</span></div>
-        <div class="element web" style="--i:12"><span class="atomic-num">12</span><span class="symbol">Fl</span><span class="element-name">Flask</span></div>
-        <div class="element web" style="--i:13"><span class="atomic-num">13</span><span class="symbol">Hc</span><span class="element-name">HTML/CSS</span></div>
-        <div class="element web" style="--i:14"><span class="atomic-num">14</span><span class="symbol">Ph</span><span class="element-name">PHP</span></div>
-
-        <div class="element tools" style="--i:15"><span class="atomic-num">15</span><span class="symbol">Gt</span><span class="element-name">Git</span></div>
-        <div class="element tools" style="--i:16"><span class="atomic-num">16</span><span class="symbol">Aw</span><span class="element-name">AWS</span></div>
-        <div class="element tools" style="--i:17"><span class="atomic-num">17</span><span class="symbol">Sn</span><span class="element-name">SonarQube</span></div>
-        <div class="element tools" style="--i:18"><span class="atomic-num">18</span><span class="symbol">Wn</span><span class="element-name">Windows</span></div>
-        <div class="element tools" style="--i:19"><span class="atomic-num">19</span><span class="symbol">Ub</span><span class="element-name">Ubuntu</span></div>
-
-        <div class="element data" style="--i:20"><span class="atomic-num">20</span><span class="symbol">Pd</span><span class="element-name">Pandas</span></div>
-        <div class="element data" style="--i:21"><span class="atomic-num">21</span><span class="symbol">Np</span><span class="element-name">NumPy</span></div>
-        <div class="element data" style="--i:22"><span class="atomic-num">22</span><span class="symbol">Mt</span><span class="element-name">Matplotlib</span></div>
-        <div class="element data" style="--i:23"><span class="atomic-num">23</span><span class="symbol">Cv</span><span class="element-name">OpenCV</span></div>
-        <div class="element data" style="--i:24"><span class="atomic-num">24</span><span class="symbol">Pt</span><span class="element-name">PyTorch</span></div>
-        <div class="element data" style="--i:25"><span class="atomic-num">25</span><span class="symbol">Tf</span><span class="element-name">TensorFlow</span></div>
-        <div class="element data" style="--i:26"><span class="atomic-num">26</span><span class="symbol">Sk</span><span class="element-name">Scikit-learn</span></div>
-        <div class="element data" style="--i:27"><span class="atomic-num">27</span><span class="symbol">Rg</span><span class="element-name">RAG</span></div>
-        <div class="element data" style="--i:28"><span class="atomic-num">28</span><span class="symbol">Ft</span><span class="element-name">LLM Fine-tuning</span></div>
-      </div>
-
-      <div class="periodic-legend">
-        <span class="legend-item"><i class="legend-swatch lang"></i>Languages</span>
-        <span class="legend-item"><i class="legend-swatch web"></i>Web &amp; Frameworks</span>
-        <span class="legend-item"><i class="legend-swatch tools"></i>Tools &amp; Platforms</span>
-        <span class="legend-item"><i class="legend-swatch data"></i>Data &amp; ML</span>
+      <div class="bookshelf">
+        <div class="shelf-row">
+          <p class="shelf-label">Languages</p>
+          <div class="shelf">
+            <div class="book lang"><span>Python</span></div>
+            <div class="book lang"><span>Java</span></div>
+            <div class="book lang"><span>C#</span></div>
+            <div class="book lang"><span>C</span></div>
+            <div class="book lang"><span>JavaScript</span></div>
+            <div class="book lang"><span>SQL</span></div>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <p class="shelf-label">Web &amp; Frameworks</p>
+          <div class="shelf">
+            <div class="book web"><span>React.js</span></div>
+            <div class="book web"><span>Node.js</span></div>
+            <div class="book web"><span>Express.js</span></div>
+            <div class="book web"><span>.NET</span></div>
+            <div class="book web"><span>Django</span></div>
+            <div class="book web"><span>Flask</span></div>
+            <div class="book web"><span>HTML/CSS</span></div>
+            <div class="book web"><span>PHP</span></div>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <p class="shelf-label">Tools &amp; Platforms</p>
+          <div class="shelf">
+            <div class="book tools"><span>Git</span></div>
+            <div class="book tools"><span>AWS</span></div>
+            <div class="book tools"><span>SonarQube</span></div>
+            <div class="book tools"><span>Windows</span></div>
+            <div class="book tools"><span>Ubuntu</span></div>
+          </div>
+        </div>
+        <div class="shelf-row">
+          <p class="shelf-label">Data &amp; ML</p>
+          <div class="shelf">
+            <div class="book data"><span>Pandas</span></div>
+            <div class="book data"><span>NumPy</span></div>
+            <div class="book data"><span>Matplotlib</span></div>
+            <div class="book data"><span>OpenCV</span></div>
+            <div class="book data"><span>PyTorch</span></div>
+            <div class="book data"><span>TensorFlow</span></div>
+            <div class="book data"><span>Scikit-learn</span></div>
+            <div class="book data"><span>RAG</span></div>
+            <div class="book data"><span>LLM Fine-tuning</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -162,7 +176,7 @@
   <!-- EDUCATION -->
   <section class="section" id="education">
     <div class="section-inner reveal">
-      <p class="section-label">03 &middot; Education</p>
+      <p class="section-label">Chapter 03 &middot; Education</p>
       <h2 class="section-title">Compiling My Credentials</h2>
 
       <div class="edu-grid">
@@ -189,7 +203,7 @@
   <!-- PROJECTS -->
   <section class="section" id="projects">
     <div class="section-inner reveal">
-      <p class="section-label">04 &middot; Projects</p>
+      <p class="section-label">Chapter 04 &middot; Projects</p>
       <h2 class="section-title">Shipped It</h2>
 
       <div class="project-grid">
@@ -261,7 +275,7 @@
   <!-- EXPERIENCE -->
   <section class="section" id="experience">
     <div class="section-inner reveal">
-      <p class="section-label">05 &middot; Experience</p>
+      <p class="section-label">Chapter 05 &middot; Experience</p>
       <h2 class="section-title">Commit History</h2>
 
       <div class="timeline">
@@ -319,7 +333,7 @@
   <!-- CONTACT -->
   <section class="section section-contact" id="contact">
     <div class="section-inner reveal">
-      <p class="section-label">06 &middot; Contact</p>
+      <p class="section-label">Chapter 06 &middot; Contact</p>
       <h2 class="section-title">Let's Sync Up</h2>
       <p class="about-text">
         I'm actively looking for full-time Software Engineer roles starting after May 2027 (or open to
@@ -337,7 +351,7 @@
 </main>
 
 <footer class="footer">
-  <p>Designed &amp; Built by Swasti Sadanand &middot; <span id="year"></span></p>
+  <p>Authored &amp; Engineered by Swasti Sadanand &middot; <span id="year"></span></p>
 </footer>
 
 <script src="script.js"></script>
