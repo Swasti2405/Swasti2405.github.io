@@ -58,3 +58,34 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.15 });
 revealEls.forEach(el => observer.observe(el));
+
+// Fallback: reveal any section already in view on load (covers direct #anchor
+// links landing past the initial viewport, where the observer's first check
+// can be missed during the jump).
+function revealVisibleNow() {
+  revealEls.forEach(el => {
+    if (el.classList.contains('visible')) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('visible');
+      observer.unobserve(el);
+    }
+  });
+}
+if (document.readyState === 'complete') {
+  revealVisibleNow();
+} else {
+  window.addEventListener('load', revealVisibleNow);
+}
+window.addEventListener('hashchange', () => setTimeout(revealVisibleNow, 50));
+
+// Cursor-tracked spotlight glow on project cards
+if (!reduceMotion) {
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    });
+  });
+}

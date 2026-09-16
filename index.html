@@ -20,10 +20,10 @@
     <a href="#top" class="nav-logo">SS<span class="cursor">_</span></a>
     <nav class="nav-links" id="navLinks">
       <a href="#about">about</a>
-      <a href="#experience">experience</a>
       <a href="#skills">skills</a>
-      <a href="#projects">projects</a>
       <a href="#education">education</a>
+      <a href="#projects">projects</a>
+      <a href="#experience">experience</a>
       <a href="#contact">contact</a>
     </nav>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
@@ -36,6 +36,7 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
+    <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-inner">
       <div class="hero-text">
         <p class="eyebrow">// software engineer &middot; full-stack + ai/ml</p>
@@ -50,6 +51,7 @@
             <p class="terminal-out" id="typedOut" hidden>MS CS @ NC State &middot; full-stack &amp; AI/ML &middot; open to Software Engineer roles</p>
           </div>
         </div>
+        <div class="status-badge"><span class="status-dot"></span>open to software engineer opportunities</div>
         <div class="hero-cta">
           <a href="#projects" class="btn btn-primary">View projects</a>
           <a href="assets/Swasti_Sadanand_Resume.pdf" class="btn btn-ghost" target="_blank" rel="noopener">Resume ↓</a>
@@ -92,68 +94,10 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
-  <section class="section" id="experience">
-    <div class="section-inner reveal">
-      <p class="section-label">02 &middot; experience</p>
-      <h2 class="section-title">Where I've worked</h2>
-
-      <div class="timeline">
-        <article class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <div class="timeline-head">
-              <h3>Software Engineer Intern</h3>
-              <span class="timeline-date">Jun 2026 – Aug 2026</span>
-            </div>
-            <p class="timeline-org">LexisNexis Legal &amp; Professional &middot; Raleigh, NC</p>
-            <ul>
-              <li>Diagnosed and resolved data-integrity defects in an email indexing pipeline handling .msg/.eml attachments, improving document-processing reliability.</li>
-              <li>Shipped front-end enhancements and enforced code-quality standards with SonarQube, reducing technical debt.</li>
-              <li>Architected a serverless AWS Lambda pipeline that reconciles document versions using pattern matching and ML-based semantic search.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <div class="timeline-head">
-              <h3>Data Analyst Intern</h3>
-              <span class="timeline-date">Feb 2025 – Jun 2025</span>
-            </div>
-            <p class="timeline-org">Pinaka AI &middot; Remote / Bangalore, India</p>
-            <ul>
-              <li>Designed a hybrid Predictive + Generative AI financial-risk platform for accounts receivable/payable data.</li>
-              <li>Engineered financial datasets and trained predictive models for credit scoring and delinquency detection.</li>
-              <li>Fine-tuned an LLM for conversational financial insights, reaching 96% accuracy on generated summaries and recommendations.</li>
-            </ul>
-          </div>
-        </article>
-
-        <article class="timeline-item">
-          <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <div class="timeline-head">
-              <h3>Software Intern</h3>
-              <span class="timeline-date">Oct 2023 – Nov 2023</span>
-            </div>
-            <p class="timeline-org">Ametek Instruments India Pvt Ltd &middot; Bangalore, India</p>
-            <ul>
-              <li>Built a C# / WPF desktop utility for bidirectional .txt ⇄ .prf conversion, automating a manual workflow.</li>
-              <li>Owned the full software lifecycle end to end, from requirements to deployment.</li>
-              <li>Built a React.js + Node.js web interface bringing the conversion tool to the browser.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
   <!-- SKILLS -->
   <section class="section" id="skills">
     <div class="section-inner reveal">
-      <p class="section-label">03 &middot; skills</p>
+      <p class="section-label">02 &middot; skills</p>
       <h2 class="section-title">Toolbox</h2>
 
       <div class="skills-grid">
@@ -186,6 +130,33 @@
             <span class="pill">OpenCV</span><span class="pill">PyTorch</span><span class="pill">TensorFlow</span>
             <span class="pill">Scikit-learn</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section" id="education">
+    <div class="section-inner reveal">
+      <p class="section-label">03 &middot; education</p>
+      <h2 class="section-title">Academic background</h2>
+
+      <div class="edu-grid">
+        <div class="edu-card">
+          <div class="timeline-head">
+            <h3>Master of Computer Science</h3>
+            <span class="timeline-date">May 2027</span>
+          </div>
+          <p class="timeline-org">NC State University &middot; Raleigh, NC</p>
+          <p class="edu-detail">GPA 3.6/4.0 &middot; Algorithms, Software Engineering, DevOps</p>
+        </div>
+        <div class="edu-card">
+          <div class="timeline-head">
+            <h3>B.E. in Computer Science</h3>
+            <span class="timeline-date">2021 – 2025</span>
+          </div>
+          <p class="timeline-org">BMS Institute of Technology and Management &middot; Bangalore, India</p>
+          <p class="edu-detail">GPA 9.47/10 &middot; Data Structures, Discrete Mathematics, Data Science, DBMS</p>
         </div>
       </div>
     </div>
@@ -260,29 +231,60 @@
     </div>
   </section>
 
-  <!-- EDUCATION -->
-  <section class="section" id="education">
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
     <div class="section-inner reveal">
-      <p class="section-label">05 &middot; education</p>
-      <h2 class="section-title">Academic background</h2>
+      <p class="section-label">05 &middot; experience</p>
+      <h2 class="section-title">Where I've worked</h2>
 
-      <div class="edu-grid">
-        <div class="edu-card">
-          <div class="timeline-head">
-            <h3>Master of Computer Science</h3>
-            <span class="timeline-date">May 2027</span>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Software Engineer Intern</h3>
+              <span class="timeline-date">Jun 2026 – Aug 2026</span>
+            </div>
+            <p class="timeline-org">LexisNexis Legal &amp; Professional &middot; Raleigh, NC</p>
+            <ul>
+              <li>Diagnosed and resolved data-integrity defects in an email indexing pipeline handling .msg/.eml attachments, improving document-processing reliability.</li>
+              <li>Shipped front-end enhancements and enforced code-quality standards with SonarQube, reducing technical debt.</li>
+              <li>Architected a serverless AWS Lambda pipeline that reconciles document versions using pattern matching and ML-based semantic search.</li>
+            </ul>
           </div>
-          <p class="timeline-org">NC State University &middot; Raleigh, NC</p>
-          <p class="edu-detail">GPA 3.6/4.0 &middot; Algorithms, Software Engineering, DevOps</p>
-        </div>
-        <div class="edu-card">
-          <div class="timeline-head">
-            <h3>B.E. in Computer Science</h3>
-            <span class="timeline-date">2021 – 2025</span>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Data Analyst Intern</h3>
+              <span class="timeline-date">Feb 2025 – Jun 2025</span>
+            </div>
+            <p class="timeline-org">Pinaka AI &middot; Remote / Bangalore, India</p>
+            <ul>
+              <li>Designed a hybrid Predictive + Generative AI financial-risk platform for accounts receivable/payable data.</li>
+              <li>Engineered financial datasets and trained predictive models for credit scoring and delinquency detection.</li>
+              <li>Fine-tuned an LLM for conversational financial insights, reaching 96% accuracy on generated summaries and recommendations.</li>
+            </ul>
           </div>
-          <p class="timeline-org">BMS Institute of Technology and Management &middot; Bangalore, India</p>
-          <p class="edu-detail">GPA 9.47/10 &middot; Data Structures, Discrete Mathematics, Data Science, DBMS</p>
-        </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-marker"></div>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3>Software Intern</h3>
+              <span class="timeline-date">Oct 2023 – Nov 2023</span>
+            </div>
+            <p class="timeline-org">Ametek Instruments India Pvt Ltd &middot; Bangalore, India</p>
+            <ul>
+              <li>Built a C# / WPF desktop utility for bidirectional .txt ⇄ .prf conversion, automating a manual workflow.</li>
+              <li>Owned the full software lifecycle end to end, from requirements to deployment.</li>
+              <li>Built a React.js + Node.js web interface bringing the conversion tool to the browser.</li>
+            </ul>
+          </div>
+        </article>
       </div>
     </div>
   </section>
