@@ -853,6 +853,9 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+.book-modal-overlay[hidden] {
+  display: none;
+}
 .book-modal-overlay {
   position: fixed;
   inset: 0;
