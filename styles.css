@@ -461,6 +461,11 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   color: var(--text-faint);
   margin: -24px 0 28px;
 }
+.section-hint {
+  margin: -22px 0 28px;
+  color: var(--accent);
+  opacity: 0.85;
+}
 
 .about-text {
   color: var(--text-dim);
