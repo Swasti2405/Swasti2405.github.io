@@ -533,7 +533,12 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   justify-content: space-between;
 }
 .timeline-head h3 { margin: 0; font-size: 1.15rem; font-weight: 700; }
-.degree-focus { font-weight: 500; color: var(--text-dim); font-size: 0.85em; }
+.degree-focus {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
 .timeline-date {
   font-family: var(--mono);
   font-size: 0.8rem;
