@@ -383,6 +383,23 @@
   <p>Authored &amp; Engineered by Swasti Sadanand &middot; <span id="year"></span></p>
 </footer>
 
+<div class="book-modal-overlay" id="bookModalOverlay" hidden>
+  <div class="book-modal" id="bookModal" role="dialog" aria-modal="true" aria-labelledby="bookModalTitle">
+    <button class="book-modal-close" id="bookModalClose" aria-label="Close">&times;</button>
+    <p class="book-modal-kicker" id="bookModalKicker"></p>
+    <h3 class="book-modal-title" id="bookModalTitle"></h3>
+    <div class="book-modal-section">
+      <p class="book-modal-label">Field Notes</p>
+      <p class="book-modal-text" id="bookModalNote"></p>
+    </div>
+    <div class="book-modal-section">
+      <p class="book-modal-label">Margin Note</p>
+      <p class="book-modal-quote" id="bookModalQuote"></p>
+      <p class="book-modal-attr" id="bookModalAttr" hidden></p>
+    </div>
+  </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
