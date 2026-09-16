@@ -89,3 +89,39 @@ if (!reduceMotion) {
     });
   });
 }
+
+// Contact form: submit via FormSubmit's AJAX endpoint (no backend required)
+const contactForm = document.getElementById('contactForm');
+if (contactForm) {
+  const CONTACT_EMAIL = 'swasti.s245@gmail.com';
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const statusEl = document.getElementById('formStatus');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalLabel = submitBtn.textContent;
+
+    statusEl.hidden = true;
+    statusEl.classList.remove('success', 'error');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(contactForm)
+      });
+      if (!res.ok) throw new Error('Request failed');
+      statusEl.textContent = "Message sent. I'll get back to you soon.";
+      statusEl.classList.add('success');
+      contactForm.reset();
+    } catch (err) {
+      statusEl.textContent = 'Something went wrong. Please email me directly instead.';
+      statusEl.classList.add('error');
+    } finally {
+      statusEl.hidden = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
+    }
+  });
+}
