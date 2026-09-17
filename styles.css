@@ -747,29 +747,6 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   8% { border-color: var(--accent); box-shadow: 0 0 16px -3px rgba(79, 214, 196, 0.55); }
 }
 
-/* project stat chips (live GitHub data + factual specs) */
-.project-stats {
-  display: flex;
-  gap: 18px;
-  margin: 0 0 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
-}
-.stat { display: flex; flex-direction: column; gap: 2px; }
-.stat-value {
-  font-family: var(--mono);
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-}
-.stat-value.stat-rank { color: var(--accent); }
-.stat-label {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  color: var(--text-faint);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
 .project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .project-link {
   font-family: var(--mono);
@@ -922,7 +899,6 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
     font-size: 0.72rem;
   }
   .flow-arrow { transform: rotate(90deg); padding: 2px 0; }
-  .project-stats { flex-wrap: wrap; row-gap: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
