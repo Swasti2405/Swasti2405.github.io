@@ -209,104 +209,153 @@
       <p class="section-label">Chapter 04 &middot; Projects</p>
       <h2 class="section-title">Shipped It</h2>
 
-      <div class="project-grid">
+      <div class="project-carousel">
+        <div class="project-track" id="projectTrack">
 
-        <article class="project-card">
-          <div class="project-card-top">
-            <span class="project-tag">proj/01</span>
-            <span class="project-status">Private Repo</span>
-          </div>
-          <h3>NextStep Bot</h3>
-          <p class="project-desc">Career Guidance Chatbot</p>
+          <article class="project-slide">
+            <div class="project-card-top">
+              <span class="project-tag">proj/01</span>
+              <span class="project-status">Private Repo</span>
+            </div>
+            <h3>NextStep Bot</h3>
+            <p class="project-desc">Career Guidance Chatbot</p>
 
-          <div class="flow-diagram">
-            <div class="flow-node" style="--delay:0s">Query</div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:0.35s">RAG<br><span class="flow-sub">Retrieval</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:0.7s">Mistral-7B<br><span class="flow-sub">QLoRA fine-tuned</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:1.05s">Grounded<br><span class="flow-sub">Answer</span></div>
-          </div>
+            <div class="flow-diagram">
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0s">Query</div>
+                <p class="flow-caption">Student's career question</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0.35s">RAG</div>
+                <p class="flow-caption">Retrieves context from a curated knowledge base</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0.7s">Mistral-7B</div>
+                <p class="flow-caption">Fine-tuned with QLoRA on domain-specific data</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:1.05s">Response</div>
+                <p class="flow-caption">Grounded guidance on studies, jobs, and resumes</p>
+              </div>
+            </div>
 
-          <p class="project-body">
-            An NLP-powered career guidance chatbot built on a fine-tuned Mistral-7B LLM. I implemented a
-            Retrieval-Augmented Generation (RAG) pipeline that pulls context from a curated knowledge
-            base so responses stay grounded and accurate, then fine-tuned the model with QLoRA to give
-            personalized guidance on higher studies, job placement, and resume building.
-          </p>
+            <p class="project-body">
+              An NLP-powered career guidance chatbot built on a fine-tuned Mistral-7B LLM. I implemented a
+              Retrieval-Augmented Generation (RAG) pipeline that pulls context from a curated knowledge
+              base so responses stay grounded and accurate, then fine-tuned the model with QLoRA to give
+              personalized guidance on higher studies, job placement, and resume building.
+            </p>
 
-          <div class="project-tech">
-            <span class="pill pill-sm">Python</span><span class="pill pill-sm">NLP</span>
-            <span class="pill pill-sm">Mistral-7B</span><span class="pill pill-sm">RAG</span>
-            <span class="pill pill-sm">QLoRA</span>
-          </div>
-        </article>
+            <div class="project-tech">
+              <span class="pill pill-sm">Python</span><span class="pill pill-sm">NLP</span>
+              <span class="pill pill-sm">Mistral-7B</span><span class="pill pill-sm">RAG</span>
+              <span class="pill pill-sm">QLoRA</span>
+            </div>
+          </article>
 
-        <article class="project-card">
-          <div class="project-card-top">
-            <span class="project-tag">proj/02</span>
-            <span class="project-status">2nd Place &middot; University PBL</span>
-          </div>
-          <h3>Technopired</h3>
-          <p class="project-desc">Learning Platform for Dyslexic Children</p>
+          <article class="project-slide">
+            <div class="project-card-top">
+              <span class="project-tag">proj/02</span>
+              <span class="project-status">2nd Place &middot; University PBL</span>
+            </div>
+            <h3>Technopired</h3>
+            <p class="project-desc">Learning Platform for Dyslexic Children</p>
 
-          <div class="flow-diagram">
-            <div class="flow-node" style="--delay:0s">Student<br><span class="flow-sub">Interaction</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:0.35s">Flask<br><span class="flow-sub">Backend</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:0.7s">Adaptive<br><span class="flow-sub">Personalization</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:1.05s">Progress<br><span class="flow-sub">Tracked</span></div>
-          </div>
+            <div class="flow-diagram">
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0s">Student</div>
+                <p class="flow-caption">Gamified, multisensory interaction</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0.35s">Flask</div>
+                <p class="flow-caption">Core backend handling learning sessions</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0.7s">Adaptive Engine</div>
+                <p class="flow-caption">Personalizes difficulty and pacing per learner</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:1.05s">Progress</div>
+                <p class="flow-caption">Tracks literacy outcomes over time</p>
+              </div>
+            </div>
 
-          <p class="project-body">
-            An accessibility-first educational platform for dyslexic children, built in Flask. I combined
-            gamification, multisensory learning, and adaptive personalization with a progress-tracking
-            system to improve literacy outcomes, earning 2nd place at a university-level Project Based
-            Learning competition.
-          </p>
+            <p class="project-body">
+              An accessibility-first educational platform for dyslexic children, built in Flask. I combined
+              gamification, multisensory learning, and adaptive personalization with a progress-tracking
+              system to improve literacy outcomes, earning 2nd place at a university-level Project Based
+              Learning competition.
+            </p>
 
-          <div class="project-tech">
-            <span class="pill pill-sm">Python</span><span class="pill pill-sm">Flask</span>
-            <span class="pill pill-sm">Accessibility</span>
-          </div>
-          <a class="project-link" href="https://github.com/Swasti2405/Technopired" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
+            <div class="project-tech">
+              <span class="pill pill-sm">Python</span><span class="pill pill-sm">Flask</span>
+              <span class="pill pill-sm">Accessibility</span>
+            </div>
+            <a class="project-link" href="https://github.com/Swasti2405/Technopired" target="_blank" rel="noopener">View on GitHub →</a>
+          </article>
 
-        <article class="project-card">
-          <div class="project-card-top">
-            <span class="project-tag">proj/03</span>
-            <span class="project-status">HackNC</span>
-          </div>
-          <h3>CogniShield</h3>
-          <p class="project-desc">Real-Time AI Integrity Layer</p>
+          <article class="project-slide">
+            <div class="project-card-top">
+              <span class="project-tag">proj/03</span>
+              <span class="project-status">HackNC</span>
+            </div>
+            <h3>CogniShield</h3>
+            <p class="project-desc">Real-Time AI Integrity Layer</p>
 
-          <div class="flow-diagram">
-            <div class="flow-node" style="--delay:0s">AI<br><span class="flow-sub">Response</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:0.35s">Extension<br><span class="flow-sub">Scoring</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:0.7s">FastAPI<br><span class="flow-sub">Analysis</span></div>
-            <span class="flow-arrow">&rarr;</span>
-            <div class="flow-node" style="--delay:1.05s">Risk<br><span class="flow-sub">Dashboard</span></div>
-          </div>
+            <div class="flow-diagram">
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0s">AI Response</div>
+                <p class="flow-caption">Captured live from the chat DOM</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0.35s">Extension</div>
+                <p class="flow-caption">Scores sycophancy and PII risk client-side</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:0.7s">FastAPI</div>
+                <p class="flow-caption">Backend analysis for flagged responses</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:1.05s">Dashboard</div>
+                <p class="flow-caption">Live risk score breakdown</p>
+              </div>
+              <span class="flow-arrow">&rarr;</span>
+              <div class="flow-step">
+                <div class="flow-node" style="--delay:1.4s">Refined Prompt</div>
+                <p class="flow-caption">One-click safer rewrite to insert</p>
+              </div>
+            </div>
 
-          <p class="project-body">
-            A real-time AI integrity layer: a Chrome extension paired with a FastAPI backend that
-            monitors LLM chat responses live, flagging sycophancy and PII-exposure risk. It surfaces a
-            live risk dashboard and suggests refined prompts to help keep AI answers factual and safe.
-            Built at HackNC.
-          </p>
+            <p class="project-body">
+              A real-time AI integrity layer: a Chrome extension paired with a FastAPI backend that
+              monitors LLM chat responses live, flagging sycophancy and PII-exposure risk. It surfaces a
+              live risk dashboard and suggests refined prompts to help keep AI answers factual and safe.
+              Built at HackNC.
+            </p>
 
-          <div class="project-tech">
-            <span class="pill pill-sm">Python</span><span class="pill pill-sm">FastAPI</span>
-            <span class="pill pill-sm">Chrome Extension</span><span class="pill pill-sm">JavaScript</span>
-          </div>
-          <a class="project-link" href="https://github.com/AnushaU1111/HackNC_Deploy-and-pray" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
+            <div class="project-tech">
+              <span class="pill pill-sm">Python</span><span class="pill pill-sm">FastAPI</span>
+              <span class="pill pill-sm">Chrome Extension</span><span class="pill pill-sm">JavaScript</span>
+            </div>
+            <a class="project-link" href="https://github.com/AnushaU1111/HackNC_Deploy-and-pray" target="_blank" rel="noopener">View on GitHub →</a>
+          </article>
 
+        </div>
+
+        <div class="carousel-controls">
+          <button class="carousel-btn" id="prevProject" aria-label="Previous project">&larr; Prev</button>
+          <span class="carousel-count" id="projectCount">01 / 03</span>
+          <button class="carousel-btn" id="nextProject" aria-label="Next project">Next &rarr;</button>
+        </div>
       </div>
     </div>
   </section>

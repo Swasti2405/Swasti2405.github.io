@@ -79,9 +79,9 @@ if (document.readyState === 'complete') {
 }
 window.addEventListener('hashchange', () => setTimeout(revealVisibleNow, 50));
 
-// Cursor-tracked spotlight glow on project cards
+// Cursor-tracked spotlight glow on project slides
 if (!reduceMotion) {
-  document.querySelectorAll('.project-card').forEach(card => {
+  document.querySelectorAll('.project-slide').forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       card.style.setProperty('--x', `${e.clientX - rect.left}px`);
@@ -89,6 +89,37 @@ if (!reduceMotion) {
     });
   });
 }
+
+// Project carousel
+(function () {
+  const track = document.getElementById('projectTrack');
+  if (!track) return;
+  const carousel = track.parentElement;
+  const slides = track.querySelectorAll('.project-slide');
+  const prevBtn = document.getElementById('prevProject');
+  const nextBtn = document.getElementById('nextProject');
+  const countEl = document.getElementById('projectCount');
+  let index = 0;
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function update() {
+    track.style.setProperty('--index', index);
+    carousel.scrollLeft = 0; // guard against focus/scrollIntoView drift on the hidden-overflow track
+    if (prevBtn) prevBtn.disabled = index === 0;
+    if (nextBtn) nextBtn.disabled = index === slides.length - 1;
+    if (countEl) countEl.textContent = `${pad(index + 1)} / ${pad(slides.length)}`;
+  }
+
+  prevBtn && prevBtn.addEventListener('click', () => {
+    if (index > 0) { index--; update(); }
+  });
+  nextBtn && nextBtn.addEventListener('click', () => {
+    if (index < slides.length - 1) { index++; update(); }
+  });
+
+  update();
+})();
 
 // Book detail modal: click a skill on the shelf to read notes about it
 const SKILL_NOTES = {
