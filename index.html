@@ -218,12 +218,30 @@
           </div>
           <h3>NextStep Bot</h3>
           <p class="project-desc">Career Guidance Chatbot</p>
+
+          <div class="flow-diagram">
+            <div class="flow-node" style="--delay:0s">Query</div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:0.35s">RAG<br><span class="flow-sub">Retrieval</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:0.7s">Mistral-7B<br><span class="flow-sub">QLoRA fine-tuned</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:1.05s">Grounded<br><span class="flow-sub">Answer</span></div>
+          </div>
+
           <p class="project-body">
             An NLP-powered career guidance chatbot built on a fine-tuned Mistral-7B LLM. I implemented a
             Retrieval-Augmented Generation (RAG) pipeline that pulls context from a curated knowledge
             base so responses stay grounded and accurate, then fine-tuned the model with QLoRA to give
             personalized guidance on higher studies, job placement, and resume building.
           </p>
+
+          <div class="project-stats">
+            <div class="stat"><span class="stat-value">7B</span><span class="stat-label">Parameters</span></div>
+            <div class="stat"><span class="stat-value">RAG</span><span class="stat-label">+ QLoRA</span></div>
+            <div class="stat"><span class="stat-value">Private</span><span class="stat-label">Repository</span></div>
+          </div>
+
           <div class="project-tech">
             <span class="pill pill-sm">Python</span><span class="pill pill-sm">NLP</span>
             <span class="pill pill-sm">Mistral-7B</span><span class="pill pill-sm">RAG</span>
@@ -238,12 +256,30 @@
           </div>
           <h3>Technopired</h3>
           <p class="project-desc">Learning Platform for Dyslexic Children</p>
+
+          <div class="flow-diagram">
+            <div class="flow-node" style="--delay:0s">Student<br><span class="flow-sub">Interaction</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:0.35s">Flask<br><span class="flow-sub">Backend</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:0.7s">Adaptive<br><span class="flow-sub">Personalization</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:1.05s">Progress<br><span class="flow-sub">Tracked</span></div>
+          </div>
+
           <p class="project-body">
             An accessibility-first educational platform for dyslexic children, built in Flask. I combined
             gamification, multisensory learning, and adaptive personalization with a progress-tracking
             system to improve literacy outcomes, earning 2nd place at a university-level Project Based
             Learning competition.
           </p>
+
+          <div class="project-stats" data-repo="Swasti2405/Technopired">
+            <div class="stat"><span class="stat-value stat-rank">#2</span><span class="stat-label">University PBL</span></div>
+            <div class="stat"><span class="stat-value" data-stat="stars">...</span><span class="stat-label">GitHub Stars</span></div>
+            <div class="stat"><span class="stat-value" data-stat="updated">...</span><span class="stat-label">Last Push</span></div>
+          </div>
+
           <div class="project-tech">
             <span class="pill pill-sm">Python</span><span class="pill pill-sm">Flask</span>
             <span class="pill pill-sm">Accessibility</span>
@@ -258,12 +294,30 @@
           </div>
           <h3>CogniShield</h3>
           <p class="project-desc">Real-Time AI Integrity Layer</p>
+
+          <div class="flow-diagram">
+            <div class="flow-node" style="--delay:0s">AI<br><span class="flow-sub">Response</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:0.35s">Extension<br><span class="flow-sub">Scoring</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:0.7s">FastAPI<br><span class="flow-sub">Analysis</span></div>
+            <span class="flow-arrow">&rarr;</span>
+            <div class="flow-node" style="--delay:1.05s">Risk<br><span class="flow-sub">Dashboard</span></div>
+          </div>
+
           <p class="project-body">
             A real-time AI integrity layer: a Chrome extension paired with a FastAPI backend that
             monitors LLM chat responses live, flagging sycophancy and PII-exposure risk. It surfaces a
             live risk dashboard and suggests refined prompts to help keep AI answers factual and safe.
             Built at HackNC.
           </p>
+
+          <div class="project-stats" data-repo="AnushaU1111/HackNC_Deploy-and-pray">
+            <div class="stat"><span class="stat-value" data-stat="contributors">...</span><span class="stat-label">Contributors</span></div>
+            <div class="stat"><span class="stat-value" data-stat="stars">...</span><span class="stat-label">GitHub Stars</span></div>
+            <div class="stat"><span class="stat-value" data-stat="updated">...</span><span class="stat-label">Last Push</span></div>
+          </div>
+
           <div class="project-tech">
             <span class="pill pill-sm">Python</span><span class="pill pill-sm">FastAPI</span>
             <span class="pill pill-sm">Chrome Extension</span><span class="pill pill-sm">JavaScript</span>

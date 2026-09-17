@@ -707,6 +707,69 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   margin: 0 0 18px;
   flex-grow: 1;
 }
+
+/* animated data-flow diagram */
+.flow-diagram {
+  display: flex;
+  align-items: stretch;
+  gap: 4px;
+  margin: 0 0 16px;
+}
+.flow-node {
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 9px 4px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: var(--text-dim);
+  text-align: center;
+  animation: flowPulse 3.4s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+.flow-sub {
+  display: block;
+  color: var(--text-faint);
+  font-size: 0.92em;
+}
+.flow-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: var(--text-faint);
+  font-size: 0.7rem;
+}
+@keyframes flowPulse {
+  0%, 74%, 100% { border-color: var(--border); box-shadow: none; }
+  8% { border-color: var(--accent); box-shadow: 0 0 16px -3px rgba(79, 214, 196, 0.55); }
+}
+
+/* project stat chips (live GitHub data + factual specs) */
+.project-stats {
+  display: flex;
+  gap: 18px;
+  margin: 0 0 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-value {
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.stat-value.stat-rank { color: var(--accent); }
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
 .project-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .project-link {
   font-family: var(--mono);
@@ -852,6 +915,14 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   .timeline-marker { left: -27px; }
   .book { width: 62px; margin-left: -10px; }
   .book span { font-size: 0.64rem; }
+  .flow-diagram { flex-direction: column; }
+  .flow-node {
+    width: 100%;
+    padding: 9px 10px;
+    font-size: 0.72rem;
+  }
+  .flow-arrow { transform: rotate(90deg); padding: 2px 0; }
+  .project-stats { flex-wrap: wrap; row-gap: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
