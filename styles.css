@@ -550,6 +550,40 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   font-size: 0.9rem;
   margin: 4px 0 10px;
 }
+.company-logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.company-logo-badge {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 12px;
+}
+.company-logo-badge img {
+  height: 24px;
+  width: auto;
+  max-width: 130px;
+  object-fit: contain;
+  display: block;
+}
+/* logos designed for a light background sit on their own light chip
+   inside the dark badge, so their original colors stay legible */
+.logo-chip {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  background: #f4f5f7;
+  border-radius: 4px;
+  padding: 4px 10px;
+}
+.logo-chip img { height: 100%; }
 
 /* ---------- SKILLS: bookshelf ---------- */
 .bookshelf {
