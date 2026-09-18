@@ -550,6 +550,29 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   font-size: 0.9rem;
   margin: 4px 0 10px;
 }
+.company-logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 16px;
+}
+.company-logo-badge {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0 14px;
+}
+.company-logo-badge img {
+  height: 22px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
 
 /* ---------- SKILLS: bookshelf ---------- */
 .bookshelf {
