@@ -550,26 +550,39 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   font-size: 0.9rem;
   margin: 4px 0 10px;
 }
+.timeline-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
 .company-logos {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-end;
+  gap: 7px;
   flex-wrap: wrap;
-  margin: 0 0 16px;
+  margin: 0;
 }
 .company-logo-badge {
   display: flex;
   align-items: center;
-  height: 46px;
+  height: 30px;
   background: var(--bg-elevated);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 0 12px;
+  border-radius: 6px;
+  padding: 0 9px;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.company-logo-badge:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-dim);
+  box-shadow: 0 10px 20px -12px rgba(79, 214, 196, 0.45);
 }
 .company-logo-badge img {
-  height: 24px;
+  height: 15px;
   width: auto;
-  max-width: 130px;
+  max-width: 88px;
   object-fit: contain;
   display: block;
 }
@@ -578,12 +591,26 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
 .logo-chip {
   display: flex;
   align-items: center;
-  height: 32px;
+  height: 20px;
   background: #f4f5f7;
   border-radius: 4px;
-  padding: 4px 10px;
+  padding: 3px 7px;
 }
 .logo-chip img { height: 100%; }
+
+/* staggered pop-in for the logo badges once the Experience section reveals */
+.reveal .company-logo-badge {
+  opacity: 0;
+  transform: translateY(6px) scale(0.85);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: var(--badge-delay, 0s);
+}
+.reveal.visible .company-logo-badge {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.company-logo-badge:nth-child(1) { --badge-delay: 0.12s; }
+.company-logo-badge:nth-child(2) { --badge-delay: 0.24s; }
 
 /* ---------- SKILLS: bookshelf ---------- */
 .bookshelf {
@@ -952,6 +979,8 @@ li { margin-bottom: 0.4em; color: var(--text-dim); }
   .section { padding: 72px 20px; }
   .timeline { padding-left: 22px; }
   .timeline-marker { left: -27px; }
+  .timeline-meta { align-items: flex-start; }
+  .company-logos { justify-content: flex-start; }
   .book { width: 62px; margin-left: -10px; }
   .book span { font-size: 0.64rem; }
   .flow-diagram { flex-direction: column; align-items: stretch; }
