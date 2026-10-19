@@ -258,7 +258,7 @@ if (contactForm) {
       // only report success when the service confirms delivery, not just on a 2xx
       const data = await res.json().catch(() => ({}));
       if (!res.ok || data.success !== true) throw new Error(data.message || 'Request failed');
-      statusEl.textContent = 'Received and bookmarked. I’ll reply soon.';
+      statusEl.textContent = 'Received and bookmarked. Thanks for reaching out! Eager to connect soon!';
       statusEl.classList.add('success');
       contactForm.reset();
     } catch (err) {
