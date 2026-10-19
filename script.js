@@ -234,10 +234,9 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !bookModalOverlay.hidden) closeBookModal();
 });
 
-// Contact form: submit via FormSubmit's AJAX endpoint (no backend required)
+// Contact form: submit via Web3Forms (no backend required; access key lives in the form)
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-  const CONTACT_EMAIL = 'swasti.s245@gmail.com';
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const statusEl = document.getElementById('formStatus');
@@ -250,12 +249,15 @@ if (contactForm) {
     submitBtn.textContent = 'Sending...';
 
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { Accept: 'application/json' },
-        body: new FormData(contactForm)
+        body: new FormData(contactForm),
+        signal: AbortSignal.timeout(20000)
       });
-      if (!res.ok) throw new Error('Request failed');
+      // only report success when the service confirms delivery, not just on a 2xx
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data.success !== true) throw new Error(data.message || 'Request failed');
       statusEl.textContent = 'Received and bookmarked. I’ll reply soon.';
       statusEl.classList.add('success');
       contactForm.reset();
