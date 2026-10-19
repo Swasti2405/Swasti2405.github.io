@@ -28,6 +28,8 @@ const typedEl = document.getElementById('typed');
 const typedOut = document.getElementById('typedOut');
 const command = 'whoami';
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
 function typeCommand() {
   if (reduceMotion) {
@@ -225,8 +227,19 @@ if (contactForm) {
     statusEl.hidden = true;
     statusEl.classList.remove('success', 'error');
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
+    submitBtn.classList.add('sending');
 
+    const frames = ['[□□□□]', '[■□□□]', '[■■□□]', '[■■■□]', '[■■■■]'];
+    let frame = 0;
+    submitBtn.textContent = `$ sending ${frames[0]}`;
+    const ticker = setInterval(() => {
+      frame = (frame + 1) % frames.length;
+      submitBtn.textContent = `$ sending ${frames[frame]}`;
+    }, 140);
+    // keep the transmit readout on screen long enough to be seen on a fast response
+    const minDisplay = new Promise(resolve => setTimeout(resolve, 900));
+
+    let sent = false;
     try {
       const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
         method: 'POST',
@@ -234,16 +247,322 @@ if (contactForm) {
         body: new FormData(contactForm)
       });
       if (!res.ok) throw new Error('Request failed');
+      sent = true;
+    } catch (err) {
+      sent = false;
+    }
+    await minDisplay;
+    clearInterval(ticker);
+    submitBtn.classList.remove('sending');
+
+    if (sent) {
       statusEl.textContent = 'Received and bookmarked. I’ll reply soon.';
       statusEl.classList.add('success');
       contactForm.reset();
-    } catch (err) {
+      submitBtn.textContent = '200 OK';
+      submitBtn.classList.add('sent');
+      setTimeout(() => {
+        submitBtn.classList.remove('sent');
+        submitBtn.textContent = originalLabel;
+        submitBtn.disabled = false;
+      }, 2600);
+    } else {
       statusEl.textContent = 'Something went wrong. Please email me directly instead.';
       statusEl.classList.add('error');
-    } finally {
-      statusEl.hidden = false;
-      submitBtn.disabled = false;
       submitBtn.textContent = originalLabel;
+      submitBtn.disabled = false;
     }
+    statusEl.hidden = false;
   });
 }
+
+// ---------- Text decrypt: characters cycle through code glyphs, then settle left to right ----------
+const SCRAMBLE_GLYPHS = '{}[]<>/\\=+*#$%_01';
+function scramble(el, duration = 700) {
+  const id = (el._scrambleId || 0) + 1;
+  el._scrambleId = id;
+  el.setAttribute('aria-label', el.textContent);
+  el.style.minHeight = `${el.offsetHeight}px`;
+
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const textNodes = [];
+  while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+  const cells = [];
+  const swaps = textNodes.map(node => {
+    const wrap = document.createElement('span');
+    for (const ch of node.textContent) {
+      const span = document.createElement('span');
+      span.textContent = ch;
+      wrap.appendChild(span);
+      if (ch.trim()) cells.push({ span, ch });
+    }
+    node.replaceWith(wrap);
+    return { node, wrap };
+  });
+  cells.forEach((c, i) => {
+    c.at = (i / cells.length) * duration * 0.75 + Math.random() * duration * 0.25;
+    c.span.className = 'scr';
+  });
+
+  const start = performance.now();
+  let lastShuffle = 0;
+  function tick(now) {
+    if (el._scrambleId !== id) return;
+    const elapsed = now - start;
+    const shuffle = now - lastShuffle > 45;
+    if (shuffle) lastShuffle = now;
+    let pending = 0;
+    cells.forEach(c => {
+      if (elapsed >= c.at) {
+        if (c.span.className) { c.span.textContent = c.ch; c.span.className = ''; }
+      } else {
+        pending++;
+        if (shuffle) c.span.textContent = SCRAMBLE_GLYPHS[Math.floor(Math.random() * SCRAMBLE_GLYPHS.length)];
+      }
+    });
+    if (pending) { requestAnimationFrame(tick); return; }
+    swaps.forEach(({ node, wrap }) => wrap.replaceWith(node));
+    el.removeAttribute('aria-label');
+    el.style.minHeight = '';
+  }
+  requestAnimationFrame(tick);
+}
+
+if (!reduceMotion) {
+  const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      titleObserver.unobserve(entry.target);
+      scramble(entry.target);
+    });
+  }, { threshold: 1, rootMargin: '0px 0px -15% 0px' });
+  document.querySelectorAll('.section-title').forEach(t => titleObserver.observe(t));
+}
+
+// ---------- Reading progress: nav bar + chapter readout ----------
+const readProgress = document.getElementById('readProgress');
+const rsChapter = document.getElementById('rsChapter');
+const rsName = document.getElementById('rsName');
+const rsPct = document.getElementById('rsPct');
+const chapters = [
+  ['top', 'preface'], ['about', 'about'], ['skills', 'skills'], ['education', 'education'],
+  ['projects', 'projects'], ['experience', 'experience'], ['contact', 'contact']
+].map(([id, name]) => ({ el: document.getElementById(id), name })).filter(c => c.el);
+let currentChapter = -1;
+
+function updateReading() {
+  if (!readProgress) return;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = max > 0 ? clamp(window.scrollY / max, 0, 1) : 0;
+  readProgress.style.transform = `scaleX(${ratio.toFixed(4)})`;
+  rsPct.textContent = `${Math.round(ratio * 100)}%`;
+
+  const line = window.innerHeight * 0.4;
+  let idx = 0;
+  chapters.forEach((c, i) => { if (c.el.getBoundingClientRect().top <= line) idx = i; });
+  if (ratio > 0.995) idx = chapters.length - 1;
+  if (idx === currentChapter) return;
+  currentChapter = idx;
+  rsChapter.textContent = `ch.${String(idx).padStart(2, '0')}/${String(chapters.length - 1).padStart(2, '0')}`;
+  rsName.textContent = chapters[idx].name;
+  if (!reduceMotion) scramble(rsName, 380);
+}
+
+// ---------- Git-graph timeline: branch line fills on scroll, roles commit when reached ----------
+const gitTimeline = document.querySelector('#experience .timeline');
+const commits = gitTimeline ? [...gitTimeline.querySelectorAll('.timeline-item')].map(item => {
+  const msg = item.querySelector('.commit-msg');
+  return { item, marker: item.querySelector('.timeline-marker'), msg, text: msg ? msg.textContent : '', typed: false };
+}) : [];
+if (gitTimeline && !reduceMotion) {
+  gitTimeline.classList.add('git-live');
+  commits.forEach(c => { if (c.msg) c.msg.textContent = ''; });
+}
+
+function typeCommit(c) {
+  c.typed = true;
+  if (!c.msg) return;
+  c.msg.classList.add('typing');
+  let i = 0;
+  const timer = setInterval(() => {
+    c.msg.textContent = c.text.slice(0, ++i);
+    if (i >= c.text.length) {
+      clearInterval(timer);
+      c.msg.classList.remove('typing');
+    }
+  }, 24);
+}
+
+function updateTimeline() {
+  if (!gitTimeline || reduceMotion) return;
+  const rect = gitTimeline.getBoundingClientRect();
+  const progress = clamp((window.innerHeight * 0.65 - rect.top) / rect.height, 0, 1);
+  gitTimeline.style.setProperty('--line', progress.toFixed(4));
+  const reach = progress * rect.height;
+  commits.forEach(c => {
+    const done = c.item.offsetTop + c.marker.offsetTop + c.marker.offsetHeight / 2 <= reach + 1;
+    c.item.classList.toggle('committed', done);
+    if (done && !c.typed) typeCommit(c);
+  });
+}
+
+let scrollQueued = false;
+function onScrollFrame() {
+  scrollQueued = false;
+  updateTimeline();
+  updateReading();
+}
+function queueScrollFrame() {
+  if (scrollQueued) return;
+  scrollQueued = true;
+  requestAnimationFrame(onScrollFrame);
+}
+window.addEventListener('scroll', queueScrollFrame, { passive: true });
+window.addEventListener('resize', queueScrollFrame);
+window.addEventListener('load', queueScrollFrame);
+queueScrollFrame();
+
+// ---------- Bookshelf browsing + magnetic buttons (mouse only) ----------
+if (finePointer && !reduceMotion) {
+  document.querySelectorAll('.shelf').forEach(shelf => {
+    const books = [...shelf.querySelectorAll('.book')];
+    shelf.addEventListener('pointermove', (e) => {
+      const rects = books.map(b => b.getBoundingClientRect());
+      books.forEach((b, i) => {
+        const r = rects[i];
+        const d = Math.hypot(e.clientX - (r.left + r.width / 2), e.clientY - (r.top + r.height / 2));
+        b.style.setProperty('--lean', Math.max(0, 1 - d / 120).toFixed(3));
+      });
+    });
+    shelf.addEventListener('pointerleave', () => books.forEach(b => b.style.removeProperty('--lean')));
+  });
+
+  document.querySelectorAll('.hero-cta .btn, .contact-links .btn, .contact-form .btn').forEach(btn => {
+    btn.classList.add('magnetic');
+    btn.addEventListener('pointermove', (e) => {
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty('--mx', `${((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1)}px`);
+      btn.style.setProperty('--my', `${((e.clientY - r.top - r.height / 2) * 0.3).toFixed(1)}px`);
+    });
+    btn.addEventListener('pointerleave', () => {
+      btn.style.removeProperty('--mx');
+      btn.style.removeProperty('--my');
+    });
+  });
+}
+
+// ---------- Reading lamp: dot-grid page; the cursor glows and reveals code glyphs ----------
+(function () {
+  const canvas = document.getElementById('lampCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const SPACING = 28;
+  const RADIUS = 170;
+  const PARALLAX = 0.12;
+  const GLYPHS = '{}[]()<>/;=+*#$_01';
+  const lamp = { x: 0, y: 0, tx: 0, ty: 0, a: 0, ta: 0 };
+  let width = 0, height = 0, raf = 0, lastMove = 0;
+
+  function hash(c, r) {
+    let n = (Math.imul(c, 374761393) + Math.imul(r, 668265263)) | 0;
+    n = Math.imul(n ^ (n >>> 13), 1274126177);
+    return ((n ^ (n >>> 16)) >>> 0) / 4294967296;
+  }
+
+  function resize() {
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function draw(now) {
+    ctx.clearRect(0, 0, width, height);
+    const shift = reduceMotion ? 0 : window.scrollY * PARALLAX;
+    const rowBase = Math.floor(shift / SPACING);
+    const offsetY = rowBase * SPACING - shift;
+    const half = SPACING / 2;
+    const cols = Math.ceil(width / SPACING) + 1;
+    const rows = Math.ceil(height / SPACING) + 1;
+    const lit = lamp.a > 0.01;
+
+    if (lit) {
+      const reach = RADIUS * 1.3;
+      const glow = ctx.createRadialGradient(lamp.x, lamp.y, 0, lamp.x, lamp.y, reach);
+      glow.addColorStop(0, `rgba(79, 214, 196, ${0.07 * lamp.a})`);
+      glow.addColorStop(1, 'rgba(79, 214, 196, 0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(lamp.x - reach, lamp.y - reach, reach * 2, reach * 2);
+    }
+
+    ctx.fillStyle = 'rgba(139, 149, 165, 0.16)';
+    for (let r = 0; r < rows; r++) {
+      const y = offsetY + r * SPACING + half;
+      for (let c = 0; c < cols; c++) ctx.fillRect(c * SPACING + half - 0.7, y - 0.7, 1.4, 1.4);
+    }
+    if (!lit) return;
+
+    const c0 = Math.max(0, Math.floor((lamp.x - RADIUS) / SPACING));
+    const c1 = Math.min(cols - 1, Math.ceil((lamp.x + RADIUS) / SPACING));
+    const r0 = Math.max(0, Math.floor((lamp.y - RADIUS - offsetY) / SPACING));
+    const r1 = Math.min(rows - 1, Math.ceil((lamp.y + RADIUS - offsetY) / SPACING));
+    ctx.font = '600 12px "JetBrains Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    for (let r = r0; r <= r1; r++) {
+      const y = offsetY + r * SPACING + half;
+      for (let c = c0; c <= c1; c++) {
+        const x = c * SPACING + half;
+        const d = Math.hypot(x - lamp.x, y - lamp.y);
+        if (d >= RADIUS) continue;
+        let t = 1 - d / RADIUS;
+        t = t * t * (3 - 2 * t) * lamp.a;
+        const h = hash(c, r + rowBase);
+        if (h < 0.13 && t > 0.3) {
+          ctx.clearRect(x - 1, y - 1, 2, 2);
+          ctx.fillStyle = `rgba(79, 214, 196, ${Math.min(1, t * 1.1).toFixed(3)})`;
+          ctx.fillText(GLYPHS[(Math.floor(h * 997) + Math.floor((now + h * 4200) / 420)) % GLYPHS.length], x, y);
+        } else {
+          ctx.fillStyle = `rgba(79, 214, 196, ${(0.1 + 0.6 * t).toFixed(3)})`;
+          ctx.beginPath();
+          ctx.arc(x, y, 0.8 + 1.6 * t, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+  }
+
+  function frame(now) {
+    raf = 0;
+    lamp.x += (lamp.tx - lamp.x) * 0.18;
+    lamp.y += (lamp.ty - lamp.y) * 0.18;
+    lamp.a += (lamp.ta - lamp.a) * 0.1;
+    draw(now);
+    const settling = Math.abs(lamp.tx - lamp.x) + Math.abs(lamp.ty - lamp.y) > 0.5 || Math.abs(lamp.ta - lamp.a) > 0.005;
+    if (settling || (lamp.a > 0.01 && now - lastMove < 1600)) request();
+  }
+  function request() {
+    if (!raf) raf = requestAnimationFrame(frame);
+  }
+
+  resize();
+  request();
+  window.addEventListener('resize', () => { resize(); request(); });
+  if (!reduceMotion) window.addEventListener('scroll', request, { passive: true });
+
+  if (finePointer && !reduceMotion) {
+    window.addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse') return;
+      if (lamp.a < 0.02) { lamp.x = e.clientX; lamp.y = e.clientY; }
+      lamp.tx = e.clientX;
+      lamp.ty = e.clientY;
+      lamp.ta = 1;
+      lastMove = performance.now();
+      request();
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', () => { lamp.ta = 0; request(); });
+  }
+})();

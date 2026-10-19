@@ -26,10 +26,14 @@
 <body>
 
 <div class="noise-overlay" aria-hidden="true"></div>
+<canvas class="lamp-canvas" id="lampCanvas" aria-hidden="true"></canvas>
 
 <header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#top" class="nav-logo">SS<span class="cursor">_</span></a>
+    <div class="nav-brand">
+      <a href="#top" class="nav-logo">SS<span class="cursor">_</span></a>
+      <span class="read-status" aria-hidden="true"><span class="rs-ch" id="rsChapter">ch.00/06</span><span class="rs-name-wrap"><span class="rs-sep">&middot;</span><span class="rs-name" id="rsName">preface</span></span><span class="rs-sep">&middot;</span><span class="rs-pct" id="rsPct">0%</span></span>
+    </div>
     <nav class="nav-links" id="navLinks">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
@@ -42,13 +46,13 @@
       <span></span><span></span><span></span>
     </button>
   </div>
+  <div class="read-progress" id="readProgress" aria-hidden="true"></div>
 </header>
 
 <main>
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-inner">
       <div class="hero-text">
         <p class="eyebrow">// Software Engineer &middot; Full-Stack + AI/ML</p>
@@ -237,17 +241,17 @@
                 <div class="flow-node" style="--delay:0s">Query</div>
                 <p class="flow-caption">Student's career question</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:0.35s">RAG</div>
                 <p class="flow-caption">Retrieves context from a curated knowledge base</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0.35s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:0.7s">Mistral-7B</div>
                 <p class="flow-caption">Fine-tuned with QLoRA on domain-specific data</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0.7s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:1.05s">Response</div>
                 <p class="flow-caption">Grounded guidance on studies, jobs, and resumes</p>
@@ -281,17 +285,17 @@
                 <div class="flow-node" style="--delay:0s">Student</div>
                 <p class="flow-caption">Gamified, multisensory interaction</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:0.35s">Flask</div>
                 <p class="flow-caption">Core backend handling learning sessions</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0.35s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:0.7s">Adaptive Engine</div>
                 <p class="flow-caption">Personalizes difficulty and pacing per learner</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0.7s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:1.05s">Progress</div>
                 <p class="flow-caption">Tracks literacy outcomes over time</p>
@@ -325,22 +329,22 @@
                 <div class="flow-node" style="--delay:0s">AI Response</div>
                 <p class="flow-caption">Captured live from the chat DOM</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:0.35s">Extension</div>
                 <p class="flow-caption">Scores sycophancy and PII risk client-side</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0.35s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:0.7s">FastAPI</div>
                 <p class="flow-caption">Backend analysis for flagged responses</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:0.7s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:1.05s">Dashboard</div>
                 <p class="flow-caption">Live risk score breakdown</p>
               </div>
-              <span class="flow-arrow">&rarr;</span>
+              <span class="flow-arrow" style="--delay:1.05s">&rarr;</span>
               <div class="flow-step">
                 <div class="flow-node" style="--delay:1.4s">Refined Prompt</div>
                 <p class="flow-caption">One-click safer rewrite to insert</p>
@@ -381,6 +385,7 @@
       <div class="timeline">
         <article class="timeline-item">
           <div class="timeline-marker"></div>
+          <p class="commit-ref"><span class="commit-hash">e7c41d2</span><span class="commit-head">(HEAD -&gt; main)</span><span class="commit-msg">feat: serverless doc pipeline @ LexisNexis</span></p>
           <div class="timeline-content">
             <div class="timeline-head">
               <h3>Software Engineer Intern</h3>
@@ -403,6 +408,7 @@
 
         <article class="timeline-item">
           <div class="timeline-marker"></div>
+          <p class="commit-ref"><span class="commit-hash">9b3f0a8</span><span class="commit-msg">feat: fine-tuned LLM insights @ Pinaka AI</span></p>
           <div class="timeline-content">
             <div class="timeline-head">
               <h3>Data Analyst Intern</h3>
@@ -424,6 +430,7 @@
 
         <article class="timeline-item">
           <div class="timeline-marker"></div>
+          <p class="commit-ref"><span class="commit-hash">4a1d6c3</span><span class="commit-msg">init: .txt to .prf converter @ Ametek</span></p>
           <div class="timeline-content">
             <div class="timeline-head">
               <h3>Software Intern</h3>
