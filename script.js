@@ -238,26 +238,36 @@ document.addEventListener('keydown', (e) => {
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   const CONTACT_EMAIL = 'swasti.s245@gmail.com';
+  const SENDING_MS = 5000;
+  const statusEl = document.getElementById('formStatus');
+  const submitBtn = contactForm.querySelector('button[type="submit"]');
+  const originalLabel = submitBtn.textContent;
+
+  // after a successful send, "200 OK" and the confirmation stay until a new message is started
+  contactForm.addEventListener('input', () => {
+    if (!submitBtn.classList.contains('sent')) return;
+    submitBtn.classList.remove('sent');
+    submitBtn.textContent = originalLabel;
+    submitBtn.disabled = false;
+    statusEl.hidden = true;
+  });
+
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const statusEl = document.getElementById('formStatus');
-    const submitBtn = contactForm.querySelector('button[type="submit"]');
-    const originalLabel = submitBtn.textContent;
-
     statusEl.hidden = true;
     statusEl.classList.remove('success', 'error');
     submitBtn.disabled = true;
     submitBtn.classList.add('sending');
 
+    // the bar fills one block per second across the 5-second transmit
     const frames = ['[□□□□]', '[■□□□]', '[■■□□]', '[■■■□]', '[■■■■]'];
     let frame = 0;
     submitBtn.textContent = `$ sending ${frames[0]}`;
     const ticker = setInterval(() => {
-      frame = (frame + 1) % frames.length;
+      frame = Math.min(frame + 1, frames.length - 1);
       submitBtn.textContent = `$ sending ${frames[frame]}`;
-    }, 140);
-    // keep the transmit readout on screen long enough to be seen on a fast response
-    const minDisplay = new Promise(resolve => setTimeout(resolve, 900));
+    }, SENDING_MS / frames.length);
+    const minDisplay = new Promise(resolve => setTimeout(resolve, SENDING_MS));
 
     let sent = false;
     try {
@@ -281,11 +291,6 @@ if (contactForm) {
       contactForm.reset();
       submitBtn.textContent = '200 OK';
       submitBtn.classList.add('sent');
-      setTimeout(() => {
-        submitBtn.classList.remove('sent');
-        submitBtn.textContent = originalLabel;
-        submitBtn.disabled = false;
-      }, 2600);
     } else {
       statusEl.textContent = 'Something went wrong. Please email me directly instead.';
       statusEl.classList.add('error');
