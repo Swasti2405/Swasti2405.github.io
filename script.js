@@ -238,38 +238,17 @@ document.addEventListener('keydown', (e) => {
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   const CONTACT_EMAIL = 'swasti.s245@gmail.com';
-  const SENDING_MS = 5000;
-  const statusEl = document.getElementById('formStatus');
-  const submitBtn = contactForm.querySelector('button[type="submit"]');
-  const originalLabel = submitBtn.textContent;
-
-  // after a successful send, "200 OK" and the confirmation stay until a new message is started
-  contactForm.addEventListener('input', () => {
-    if (!submitBtn.classList.contains('sent')) return;
-    submitBtn.classList.remove('sent');
-    submitBtn.textContent = originalLabel;
-    submitBtn.disabled = false;
-    statusEl.hidden = true;
-  });
-
   contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const statusEl = document.getElementById('formStatus');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalLabel = submitBtn.textContent;
+
     statusEl.hidden = true;
     statusEl.classList.remove('success', 'error');
     submitBtn.disabled = true;
-    submitBtn.classList.add('sending');
+    submitBtn.textContent = 'Sending...';
 
-    // the bar fills one block per second across the 5-second transmit
-    const frames = ['[□□□□]', '[■□□□]', '[■■□□]', '[■■■□]', '[■■■■]'];
-    let frame = 0;
-    submitBtn.textContent = `$ sending ${frames[0]}`;
-    const ticker = setInterval(() => {
-      frame = Math.min(frame + 1, frames.length - 1);
-      submitBtn.textContent = `$ sending ${frames[frame]}`;
-    }, SENDING_MS / frames.length);
-    const minDisplay = new Promise(resolve => setTimeout(resolve, SENDING_MS));
-
-    let sent = false;
     try {
       const res = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
         method: 'POST',
@@ -277,27 +256,17 @@ if (contactForm) {
         body: new FormData(contactForm)
       });
       if (!res.ok) throw new Error('Request failed');
-      sent = true;
-    } catch (err) {
-      sent = false;
-    }
-    await minDisplay;
-    clearInterval(ticker);
-    submitBtn.classList.remove('sending');
-
-    if (sent) {
       statusEl.textContent = 'Received and bookmarked. I’ll reply soon.';
       statusEl.classList.add('success');
       contactForm.reset();
-      submitBtn.textContent = '200 OK';
-      submitBtn.classList.add('sent');
-    } else {
+    } catch (err) {
       statusEl.textContent = 'Something went wrong. Please email me directly instead.';
       statusEl.classList.add('error');
-      submitBtn.textContent = originalLabel;
+    } finally {
+      statusEl.hidden = false;
       submitBtn.disabled = false;
+      submitBtn.textContent = originalLabel;
     }
-    statusEl.hidden = false;
   });
 }
 
@@ -481,7 +450,7 @@ if (finePointer && !reduceMotion) {
     shelf.addEventListener('pointerleave', () => books.forEach(b => b.style.removeProperty('--lean')));
   });
 
-  document.querySelectorAll('.hero-cta .btn, .contact-links .btn, .contact-form .btn').forEach(btn => {
+  document.querySelectorAll('.hero-cta .btn, .contact-links .btn').forEach(btn => {
     btn.classList.add('magnetic');
     btn.addEventListener('pointermove', (e) => {
       const r = btn.getBoundingClientRect();
