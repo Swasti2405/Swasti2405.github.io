@@ -31,21 +31,41 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
 
+const outputText = typedOut.textContent;
+
+function typeText(el, text, speed, done) {
+  let i = 0;
+  const timer = setInterval(() => {
+    el.textContent = text.slice(0, ++i);
+    if (i >= text.length) {
+      clearInterval(timer);
+      if (done) done();
+    }
+  }, speed);
+}
+
+// reserve the terminal's final height up front so the content below never shifts while typing
+const terminalBody = typedOut.parentElement;
+if (!reduceMotion) {
+  typedOut.hidden = false;
+  terminalBody.style.minHeight = `${terminalBody.offsetHeight}px`;
+  typedOut.hidden = true;
+  typedOut.textContent = '';
+}
+
 function typeCommand() {
   if (reduceMotion) {
     typedEl.textContent = command;
     typedOut.hidden = false;
     return;
   }
-  let i = 0;
-  const interval = setInterval(() => {
-    typedEl.textContent = command.slice(0, i + 1);
-    i++;
-    if (i === command.length) {
-      clearInterval(interval);
-      setTimeout(() => { typedOut.hidden = false; }, 300);
-    }
-  }, 110);
+  const body = terminalBody;
+  typeText(typedEl, command, 110, () => {
+    setTimeout(() => {
+      typedOut.hidden = false;
+      typeText(typedOut, outputText, 40, () => { body.style.minHeight = ''; });
+    }, 300);
+  });
 }
 window.addEventListener('DOMContentLoaded', () => setTimeout(typeCommand, 500));
 
@@ -278,7 +298,8 @@ if (contactForm) {
 
 // ---------- Text decrypt: characters cycle through code glyphs, then settle left to right ----------
 const SCRAMBLE_GLYPHS = '{}[]<>/\\=+*#$%_01';
-function scramble(el, duration = 700) {
+function scramble(el, duration = 1300) {
+  if (el._scrambleRestore) el._scrambleRestore();
   const id = (el._scrambleId || 0) + 1;
   el._scrambleId = id;
   el.setAttribute('aria-label', el.textContent);
@@ -305,12 +326,20 @@ function scramble(el, duration = 700) {
     c.span.className = 'scr';
   });
 
+  // put the real text nodes back; also used when a replay interrupts this run
+  el._scrambleRestore = () => {
+    swaps.forEach(({ node, wrap }) => wrap.replaceWith(node));
+    el.removeAttribute('aria-label');
+    el.style.minHeight = '';
+    el._scrambleRestore = null;
+  };
+
   const start = performance.now();
   let lastShuffle = 0;
   function tick(now) {
     if (el._scrambleId !== id) return;
     const elapsed = now - start;
-    const shuffle = now - lastShuffle > 45;
+    const shuffle = now - lastShuffle > 65;
     if (shuffle) lastShuffle = now;
     let pending = 0;
     cells.forEach(c => {
@@ -322,19 +351,16 @@ function scramble(el, duration = 700) {
       }
     });
     if (pending) { requestAnimationFrame(tick); return; }
-    swaps.forEach(({ node, wrap }) => wrap.replaceWith(node));
-    el.removeAttribute('aria-label');
-    el.style.minHeight = '';
+    el._scrambleRestore();
   }
   requestAnimationFrame(tick);
 }
 
 if (!reduceMotion) {
+  // replays each time a title scrolls back into view
   const titleObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      titleObserver.unobserve(entry.target);
-      scramble(entry.target);
+      if (entry.isIntersecting) scramble(entry.target);
     });
   }, { threshold: 1, rootMargin: '0px 0px -15% 0px' });
   document.querySelectorAll('.section-title').forEach(t => titleObserver.observe(t));
@@ -373,7 +399,7 @@ function updateReading() {
 const gitTimeline = document.querySelector('#experience .timeline');
 const commits = gitTimeline ? [...gitTimeline.querySelectorAll('.timeline-item')].map(item => {
   const msg = item.querySelector('.commit-msg');
-  return { item, marker: item.querySelector('.timeline-marker'), msg, text: msg ? msg.textContent : '', typed: false };
+  return { item, marker: item.querySelector('.timeline-marker'), msg, text: msg ? msg.textContent : '', timer: 0 };
 }) : [];
 if (gitTimeline && !reduceMotion) {
   gitTimeline.classList.add('git-live');
@@ -381,29 +407,41 @@ if (gitTimeline && !reduceMotion) {
 }
 
 function typeCommit(c) {
-  c.typed = true;
+  clearInterval(c.timer);
   if (!c.msg) return;
+  c.msg.textContent = '';
   c.msg.classList.add('typing');
   let i = 0;
-  const timer = setInterval(() => {
+  c.timer = setInterval(() => {
     c.msg.textContent = c.text.slice(0, ++i);
     if (i >= c.text.length) {
-      clearInterval(timer);
+      clearInterval(c.timer);
       c.msg.classList.remove('typing');
     }
-  }, 24);
+  }, 50);
+}
+
+function resetCommit(c) {
+  clearInterval(c.timer);
+  if (!c.msg) return;
+  c.msg.textContent = '';
+  c.msg.classList.remove('typing');
 }
 
 function updateTimeline() {
   if (!gitTimeline || reduceMotion) return;
   const rect = gitTimeline.getBoundingClientRect();
-  const progress = clamp((window.innerHeight * 0.65 - rect.top) / rect.height, 0, 1);
+  const readLine = window.innerHeight * 0.65;
+  const progress = clamp((readLine - rect.top) / rect.height, 0, 1);
   gitTimeline.style.setProperty('--line', progress.toFixed(4));
-  const reach = progress * rect.height;
   commits.forEach(c => {
-    const done = c.item.offsetTop + c.marker.offsetTop + c.marker.offsetHeight / 2 <= reach + 1;
+    const nodeY = rect.top + c.item.offsetTop + c.marker.offsetTop + c.marker.offsetHeight / 2;
+    // committed once the line reaches it; resets after scrolling off the top so it replays on return
+    const done = nodeY <= readLine && nodeY >= -40;
+    if (done === c.item.classList.contains('committed')) return;
     c.item.classList.toggle('committed', done);
-    if (done && !c.typed) typeCommit(c);
+    if (done) typeCommit(c);
+    else resetCommit(c);
   });
 }
 
